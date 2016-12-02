@@ -283,7 +283,15 @@ public class AudioRecorderActivity extends AppCompatActivity
                     new PullTransport.Default(Util.getMic(source, channel, sampleRate), AudioRecorderActivity.this),
                     new File(filePath));
         }
-        recorder.resumeRecording();
+
+        Util.wait(100, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    recorder.resumeRecording();
+                } catch(Exception _ex) {}
+            }
+        });
 
         startTimer();
     }
