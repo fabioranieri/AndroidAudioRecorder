@@ -1,5 +1,6 @@
 package cafe.adriel.androidaudiorecorder;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -208,6 +209,10 @@ public class AudioRecorderActivity extends AppCompatActivity
 
     private void selectAudio() {
         stopRecording();
+
+        Intent data = new Intent();
+        data.putExtra(STORE_ACTUAL_PATH_KEY, filePath);
+
         setResult(RESULT_OK);
         finish();
     }
@@ -288,7 +293,7 @@ public class AudioRecorderActivity extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    recorder.resumeRecording();
+                   try { recorder.resumeRecording(); } catch(Exception _ex) {}
                 } catch(Exception _ex) {}
             }
         });
@@ -424,4 +429,6 @@ public class AudioRecorderActivity extends AppCompatActivity
             }
         });
     }
-}
+
+    public final static String STORE_ACTUAL_PATH_KEY = "STORE_ACTUAL_PATH_KEY";
+};
